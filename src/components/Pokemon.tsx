@@ -18,7 +18,7 @@ export default function Pokemon({ pokeData, flushPokeData }: PokemonProps) {
     };
   }, [flushPokeData]);
 
-  if ([...Object.keys(pokeData)].length <= 0) {
+  if (Object.keys(pokeData).length <= 0) {
     return <></>;
   }
 

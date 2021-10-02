@@ -57,6 +57,11 @@ function App() {
     setSearchTerm(value);
   }, []);
 
+  const flushPokeData = useCallback(() => {
+    // @ts-ignore
+    setPokeData({});
+  }, []);
+
   return (
     <>
       <header
@@ -78,9 +83,7 @@ function App() {
           </a>
         </div>
 
-        <div>
-          <Search setSearchTerm={changeSetTerm} />
-        </div>
+        <Search setSearchTerm={changeSetTerm} />
       </header>
 
       <main className="d-flex justify-content-center align-items-center">
@@ -88,7 +91,7 @@ function App() {
           <section
             id="results"
             className="d-flex justify-content-center flex-wrap col-10">
-            <Pokemon pokeData={pokeData} />
+            <Pokemon pokeData={pokeData} flushPokeData={flushPokeData} />
           </section>
         ) : (
           <div
@@ -98,8 +101,10 @@ function App() {
               gridGap: '10px',
               gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
             }}>
-            {allPokemon.map((pokemon) => (
-              <div>{pokemon.name}</div>
+            {allPokemon.map((pokemon, key) => (
+              <div key={key} onClick={() => setSearchTerm(pokemon.name)}>
+                {pokemon.name}
+              </div>
             ))}
           </div>
         )}

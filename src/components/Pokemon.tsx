@@ -1,11 +1,27 @@
+import { useEffect } from 'react';
 import { IPokemon } from './../types/Pokemon';
+import React from 'react';
 
 type PokemonProps = {
   pokeData: IPokemon;
+  flushPokeData: Function;
 };
 
-export default function Pokemon({ pokeData }: PokemonProps) {
+export default function Pokemon({ pokeData, flushPokeData }: PokemonProps) {
   const { name, sprites, weight, height } = pokeData;
+
+  useEffect(() => {
+    return () => {
+      console.log('onmounted');
+
+      // @ts-ignore
+      flushPokeData();
+    };
+  }, [flushPokeData]);
+
+  if ([...Object.keys(pokeData)].length <= 0) {
+    return <></>;
+  }
 
   return (
     <div>

@@ -10,19 +10,47 @@ import Search from './components/Search';
 import { IPokemon } from './types/Pokemon';
 import axios from 'axios';
 
-const BASE_URL = 'https://pokeapi.co/api/v2/pokemon/';
+const BASE_URL = 'https://pokeapi.co/api/v2';
+
+const getAllPokemon = async () => {
+  const pokeURL = `${BASE_URL}/pokemon?limit=20`;
+  const resp = await axios.get<any>(pokeURL); //array of pokemon
+
+  const pokemonData: IPokemon[] = resp.data.results;
+
+  return pokemonData;
+};
+
+const getOnePokemon = async (searchTerm: string) => {
+  const pokeURL = `${BASE_URL}/pokemon/${searchTerm}`;
+  const resp = await axios.get<IPokemon>(pokeURL); // one object
+  return resp.data;
+};
 
 function App() {
-  const [pokeData, setPokeData] = useState<IPokemon>({} as IPokemon);
-  const [searchTerm, setSearchTerm] = useState('pikachu');
+  const [pokeData, setPokeData] = useState<IPokemon>({} as IPokemon); // object
+  const [searchTerm, setSearchTerm] = useState('');
+  const [allPokemon, setAllPokemon] = useState<IPokemon[] | []>([]); // array of pokemons or empty.
 
   useEffect(() => {
-    const pokeURL = `https://pokeapi.co/api/v2/pokemon/${searchTerm}`;
-    const getPokemon = async () => {
-      const resp = await axios.get<IPokemon>(pokeURL);
-      setPokeData(resp.data);
+    const fetchAllPokemonOnMount = async () => {
+      const allPokemonResult = await getAllPokemon();
+      console.log({ allPokemonResult });
+      setAllPokemon(allPokemonResult);
     };
-    getPokemon();
+    fetchAllPokemonOnMount();
+  }, []);
+
+  useEffect(() => {
+    // check for if no search term so it doesn't run on mount
+    if (!searchTerm) return;
+
+    const fetchOnePokemon = async () => {
+      const onePokemon = await getOnePokemon(searchTerm);
+      setPokeData(onePokemon);
+    };
+
+    fetchOnePokemon();
   }, [searchTerm]);
 
   const changeSetTerm = useCallback((value) => {
@@ -56,11 +84,25 @@ function App() {
       </header>
 
       <main className="d-flex justify-content-center align-items-center">
-        <section
-          id="results"
-          className="d-flex justify-content-center flex-wrap col-10">
-          <Pokemon pokeData={pokeData} />
-        </section>
+        {searchTerm ? (
+          <section
+            id="results"
+            className="d-flex justify-content-center flex-wrap col-10">
+            <Pokemon pokeData={pokeData} />
+          </section>
+        ) : (
+          <div
+            style={{
+              width: '80%',
+              display: 'grid',
+              gridGap: '10px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
+            }}>
+            {allPokemon.map((pokemon) => (
+              <div>{pokemon.name}</div>
+            ))}
+          </div>
+        )}
       </main>
     </>
   );

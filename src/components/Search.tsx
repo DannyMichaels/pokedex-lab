@@ -12,7 +12,7 @@ export default function Search({ setSearchTerm }: any) {
   const handleChange = (e: any) => setInputValue(e.target.value);
 
   return (
-    <div style={{ flex: 0.2 }}>
+    <div>
       <form onSubmit={handleSubmit} className="d-flex align-items-end gap-2">
         <div className="form-group">
           <label className="text-white" htmlFor="search"></label>

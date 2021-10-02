@@ -35,7 +35,6 @@ function App() {
   useEffect(() => {
     const fetchAllPokemonOnMount = async () => {
       const allPokemonResult = await getAllPokemon();
-      console.log({ allPokemonResult });
       setAllPokemon(allPokemonResult);
     };
     fetchAllPokemonOnMount();
@@ -94,19 +93,16 @@ function App() {
             <Pokemon pokeData={pokeData} flushPokeData={flushPokeData} />
           </section>
         ) : (
-          <div
-            style={{
-              width: '80%',
-              display: 'grid',
-              gridGap: '10px',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
-            }}>
+          <ul className="all-pokemon-list">
             {allPokemon.map((pokemon, key) => (
-              <div key={key} onClick={() => setSearchTerm(pokemon.name)}>
+              <button
+                className="pokemon-list-item bg-white rounded p-2"
+                key={key}
+                onClick={() => setSearchTerm(pokemon.name)}>
                 {pokemon.name}
-              </div>
+              </button>
             ))}
-          </div>
+          </ul>
         )}
       </main>
     </>

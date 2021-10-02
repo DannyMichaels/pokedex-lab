@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { IPokemon } from './../types/Pokemon';
-import React from 'react';
 
 type PokemonProps = {
   pokeData: IPokemon;

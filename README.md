@@ -1,46 +1,48 @@
-# Getting Started with Create React App
+[![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Pokedex Lab
 
-## Available Scripts
+Using the [PokéApi](https://pokeapi.co/), create a Pokédex where users can not
+only browse a list of Pokémon characters, but also search for their favorites!
 
-In the project directory, you can run:
+Starter code is provided for you, which includes some HTML and CSS.
 
-### `yarn start`
+![Pokédex](img/screenshot2.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Prerequisites
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- React
+- APIs & AJAX
 
-### `yarn test`
+## Instructions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone this repository
+1. cd `pokedex-lab/pokedex-starter`
+1. In the directory for the project, run `npm i`
+1. Install axios: `npm i axios`
 
-### `yarn build`
+## Requirements
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. When the page loads, make a request to the PokéApi and have it display information about Pikachu.
+2. Add an input field/search bar. Track what the user has typed in that input as an attribute in state.
+3. Add a submit button. When the user clicks submit a second API request should be made to retrieve all the information about the pokemon whose name was typed in the search bar.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Bonus
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Make the home page initially render a list of all the Pokemon. When they click on one, have it display information about just that pokemon. **Hint**: Look into conditional rendering. Also, you can have more than one useEffect!
+- Add a dropdown that includes the following options: Name, Move, Ability, and
+  Location. Focus the search based on the option the user selects for the dropdown menu.
+  When the Search button is clicked, make a request to the PokéApi to search
+  the Pokémon property that matches the selected option for what is in the
+  input field. If the input does match any data from the PokéApi, create an alert that says
+  "No matches! Try something else!"
+- Use [React Bootstrap](https://react-bootstrap.github.io/getting-started/introduction) to style your form input and
+  pokemon search results
+- Make your Pokédex responsive using the
+  [Bootstrap grid](https://react-bootstrap.netlify.com/layout/grid/#grid)!
 
-### `yarn eject`
+## [License](LICENSE)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1.  All content is licensed under a CC­BY­NC­SA 4.0 license.
+2.  All software code is licensed under GNU GPLv3. For commercial use or
+    alternative licensing, please contact legal@ga.co.

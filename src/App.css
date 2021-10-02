@@ -1,0 +1,46 @@
+main {
+  /* height of body - height of header */
+  height: calc(100vh - 108px);
+  background-image: url('https://wallpapercave.com/wp/wp3800310.jpg');
+  background-color: #f6e652;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center left;
+}
+
+header {
+  width: 100vw;
+  height: 108px;
+}
+
+.navbar-brand {
+  font-size: 28px;
+}
+
+button {
+  font-size: 20px;
+}
+
+#results {
+  font-size: 18px;
+}
+
+.pokeImg {
+  border: 1px solid black;
+  box-shadow: 5px 10px;
+  background-color: white;
+}
+
+.pokeName {
+  color: red;
+  text-align: center;
+  font-style: italic;
+  text-decoration: underline;
+  text-transform: capitalize;
+}
+
+li {
+  font-size: larger;
+  color: black;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}

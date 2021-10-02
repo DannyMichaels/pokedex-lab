@@ -30,8 +30,8 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <nav
+    <>
+      <header
         className="bg-dark d-flex justify-content-between px-5
       nav d-flex align-items-center
       ">
@@ -53,7 +53,7 @@ function App() {
         <div>
           <Search setSearchTerm={changeSetTerm} />
         </div>
-      </nav>
+      </header>
 
       <main className="d-flex justify-content-center align-items-center">
         <section
@@ -62,7 +62,7 @@ function App() {
           <Pokemon pokeData={pokeData} />
         </section>
       </main>
-    </div>
+    </>
   );
 }
 

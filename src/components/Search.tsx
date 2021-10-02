@@ -1,6 +1,17 @@
 import { useState } from 'react';
+import Dropdown from 'react-bootstrap/Dropdown';
 
-export default function Search({ setSearchTerm }: any) {
+interface SearchProps {
+  setSearchTerm: (value: string) => void;
+  setSearchCategory: (value: string) => void;
+  searchCategory: string;
+}
+
+export default function Search({
+  setSearchTerm,
+  setSearchCategory,
+  searchCategory,
+}: SearchProps) {
   const [inputValue, setInputValue] = useState('');
 
   const handleSubmit = (e: any) => {
@@ -25,6 +36,25 @@ export default function Search({ setSearchTerm }: any) {
             className="form-control"
           />
         </div>
+        <Dropdown
+          onSelect={(value: any) => {
+            setSearchCategory(value);
+          }}>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            Search category
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            {['pokemon', 'move', 'ability', 'location'].map((value, key) => (
+              <Dropdown.Item
+                eventKey={value}
+                key={key}
+                active={searchCategory === value}>
+                {value}
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
         <button className="btn btn-primary" type="submit">
           Submit
         </button>

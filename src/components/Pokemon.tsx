@@ -24,8 +24,16 @@ export default function Pokemon({ pokeData, flushPokeData }: PokemonProps) {
     <div>
       <ul>
         <h1 className="pokeName">Name: {name}</h1>
-        <li>Height: {height}</li>
-        <li> Weight: {weight}</li>
+        {height ? (
+          <>
+            {' '}
+            <li>Height: {height}</li>
+            <li> Weight: {weight}</li>
+          </>
+        ) : (
+          JSON.stringify(Object.entries(pokeData))
+        )}
+
         <img
           className="pokeImg"
           src={sprites?.front_shiny ?? ''}

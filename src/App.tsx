@@ -21,8 +21,8 @@ const getAllPokemon = async () => {
   return pokemonData;
 };
 
-const getOnePokemon = async (searchTerm: string) => {
-  const pokeURL = `${BASE_URL}/pokemon/${searchTerm}`;
+const getOnePokemon = async (searchTerm: string, searchCategory: string) => {
+  const pokeURL = `${BASE_URL}/${searchCategory}/${searchTerm}`;
   const resp = await axios.get<IPokemon>(pokeURL); // one object
   return resp.data;
 };
@@ -30,6 +30,7 @@ const getOnePokemon = async (searchTerm: string) => {
 function App() {
   const [pokeData, setPokeData] = useState<IPokemon>({} as IPokemon); // object
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchCategory, setSearchCategory] = useState('pokemon');
   const [allPokemon, setAllPokemon] = useState<IPokemon[] | []>([]); // array of pokemons or empty.
 
   useEffect(() => {
@@ -45,15 +46,19 @@ function App() {
     if (!searchTerm) return;
 
     const fetchOnePokemon = async () => {
-      const onePokemon = await getOnePokemon(searchTerm);
+      const onePokemon = await getOnePokemon(searchTerm, searchCategory);
       setPokeData(onePokemon);
     };
 
     fetchOnePokemon();
-  }, [searchTerm]);
+  }, [searchTerm, searchCategory]);
 
-  const changeSetTerm = useCallback((value) => {
+  const changeSearchTerm = useCallback((value: string) => {
     setSearchTerm(value);
+  }, []);
+
+  const changeSearchCategory = useCallback((value: string) => {
+    setSearchCategory(value);
   }, []);
 
   const flushPokeData = useCallback(() => {
@@ -82,7 +87,11 @@ function App() {
           </a>
         </div>
 
-        <Search setSearchTerm={changeSetTerm} />
+        <Search
+          setSearchTerm={changeSearchTerm}
+          setSearchCategory={changeSearchCategory}
+          searchCategory={searchCategory}
+        />
       </header>
 
       <main className="d-flex justify-content-center align-items-center">

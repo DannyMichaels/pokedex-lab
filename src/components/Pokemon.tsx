@@ -11,10 +11,8 @@ export default function Pokemon({ pokeData, flushPokeData }: PokemonProps) {
 
   useEffect(() => {
     return () => {
-      console.log('onmounted');
-
       // @ts-ignore
-      flushPokeData();
+      flushPokeData(); // set pokeData to empty object when user leaves this component
     };
   }, [flushPokeData]);
 

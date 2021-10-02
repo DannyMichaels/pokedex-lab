@@ -1,8 +1,12 @@
-import './App.css';
+import { useEffect, useState, useCallback } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // bootstrap styles
-import Pokemon from './components/Pokemon';
+import './App.css';
 
-import { useEffect, useState } from 'react';
+// components
+import Pokemon from './components/Pokemon';
+import Search from './components/Search';
+
+// utils
 import { IPokemon } from './types/Pokemon';
 import axios from 'axios';
 
@@ -14,33 +18,42 @@ function App() {
 
   useEffect(() => {
     const pokeURL = `https://pokeapi.co/api/v2/pokemon/${searchTerm}`;
-    const makeApiCall = async () => {
+    const getPokemon = async () => {
       const resp = await axios.get<IPokemon>(pokeURL);
       setPokeData(resp.data);
     };
-    makeApiCall();
+    getPokemon();
   }, [searchTerm]);
+
+  const changeSetTerm = useCallback((value) => {
+    setSearchTerm(value);
+  }, []);
 
   return (
     <div className="App">
-      <header className="bg-dark d-flex justify-content-between px-5">
-        <nav className="navbar navbar-dark">
-          <div className="nav">
-            <a href="/" className="navbar-brand d-flex align-items-center">
-              <img
-                src="https://www.freeiconspng.com/uploads/pokeball-transparent-png-2.png"
-                width="55"
-                height="55"
-                className="d-inline-block align-top m-2 d-inline"
-                alt="Pokéball"
-              />
-              <span className="navbar-text text-white font-weight-bold">
-                Pokédex
-              </span>
-            </a>
-          </div>
-        </nav>
-      </header>
+      <nav
+        className="bg-dark d-flex justify-content-between px-5
+      nav d-flex align-items-center
+      ">
+        <div>
+          <a href="/" className="navbar-brand d-flex align-items-center">
+            <img
+              src="https://www.freeiconspng.com/uploads/pokeball-transparent-png-2.png"
+              width="55"
+              height="55"
+              className="d-inline-block align-top m-2 d-inline"
+              alt="Pokéball"
+            />
+            <span className="navbar-text text-white font-weight-bold">
+              Pokédex
+            </span>
+          </a>
+        </div>
+
+        <div>
+          <Search setSearchTerm={changeSetTerm} />
+        </div>
+      </nav>
 
       <main className="d-flex justify-content-center align-items-center">
         <section
